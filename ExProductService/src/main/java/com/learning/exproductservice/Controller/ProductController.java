@@ -3,8 +3,11 @@ package com.learning.exproductservice.Controller;
 import com.learning.exproductservice.Exception.ProductNotFoundException;
 import com.learning.exproductservice.Model.Product;
 import com.learning.exproductservice.Repository.ProductRepository;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -43,7 +46,15 @@ public class ProductController {
         return new ResponseEntity<>("Number of products is:"+count, HttpStatus.OK);
     }
 
+    @GetMapping("/countt")
+    public Long countt(){
+        long countt=productRepository.count();
+        return countt;
+    }
+
     @GetMapping("/products")
+    //@CacheEvict
+    //@Cacheable(value="allproducts", key="#name")
     public Iterable<Product> products(){
         return productRepository.findAll();
     }
@@ -94,7 +105,7 @@ public class ProductController {
     }
 
     @PostMapping("/addproduct1")
-    public ResponseEntity<String> addProduct1(@RequestBody Product product){
+    public ResponseEntity<String> addProduct1(@Valid @RequestBody Product product){
         productRepository.save(product);
         return new ResponseEntity<>("Product added successfully", HttpStatus.CREATED);
     }
