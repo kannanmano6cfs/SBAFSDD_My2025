@@ -1,5 +1,6 @@
 package com.learning.exproductservice.Controller;
 
+import com.learning.exproductservice.Exception.ProductNotFoundException;
 import com.learning.exproductservice.Model.Product;
 import com.learning.exproductservice.Repository.ProductRepository;
 import org.apache.coyote.Response;
@@ -47,19 +48,22 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    @GetMapping("/product/{id}")
+    // Path Variable
+    // Exception Handling
+    @GetMapping("/product/v1/{id}")
     public Product getProduct(@PathVariable int id){
         Optional<Product> product=productRepository.findById(id);
-        return product.orElse(null);
+        //return product.orElseThrow(null);
+        return product.orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-    @GetMapping("/productt")
+    @GetMapping("/product/v2")
     public Product getProductt(@RequestParam int id){
         Optional<Product> product=productRepository.findById(id);
         return product.orElse(null);
     }
 
-    @GetMapping("/producttt")
+    @GetMapping("/product/v3")
     public Product getProducttt(@RequestParam String prdname){
         Optional<Product> product=productRepository.findByPrdname(prdname);
         return product.orElse(null);
