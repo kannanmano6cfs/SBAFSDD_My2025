@@ -3,6 +3,8 @@ package com.learning.exproductservice.Controller;
 import com.learning.exproductservice.Exception.ProductNotFoundException;
 import com.learning.exproductservice.Model.Product;
 import com.learning.exproductservice.Repository.ProductRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.swing.text.html.Option;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Optional;
 
 @RestController
@@ -25,6 +29,9 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private RestTemplate restTemplate; //Dont forget to add bean in SpringBootApplication
 
     @Autowired
     private Environment environment;
@@ -130,5 +137,24 @@ public class ProductController {
     }
 
 
+    //Service to Service Communication through REST API
+    private static final String ordsvc_API="http://localhost:8082/api/placeorder";
+    int attempt=1;
 
+    @GetMapping("/chooseproduct/{id}")
+    //@CircuitBreaker(name="fss1", fallbackMethod = "fallback")
+    @Retry(name="fss2", fallbackMethod = "fallback")
+    public ResponseEntity<String> chooseProduct(@PathVariable int id){
+        System.out.println("Product chosen for place the order "+attempt++);//demo
+        Optional<Product> product=productRepository.findById(id);
+        ResponseEntity<String> response=restTemplate.postForEntity(ordsvc_API,product,String.class);
+        System.out.println("Order Placed Successfully");//demo
+        return response;
+    }
+
+    //Fallback Method
+    public ResponseEntity<String> fallback(Throwable ex){
+        System.out.println("Order unable to place due to server issues");//demo
+        return new ResponseEntity<>("Order unable to place due to server issues",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
