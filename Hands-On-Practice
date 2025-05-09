@@ -13,4 +13,7 @@ Spring Cloud
 - Service Discovery
 - Load Balancing
 - Distributed Tracing using Zipkin
+- Circuit Breaker
+- Retry
+-Prepare OTP Code Application
 
