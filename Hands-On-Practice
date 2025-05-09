@@ -7,3 +7,10 @@ Excpetion Handling
 Spring Security
 Advancements in REST
 ----
+------Day3--------
+Spring Cloud 
+- API Gateway
+- Service Discovery
+- Load Balancing
+- Distributed Tracing using Zipkin
+
