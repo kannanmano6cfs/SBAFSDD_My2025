@@ -7,7 +7,7 @@ Excpetion Handling
 Spring Security
 Advancements in REST
 ----
-------Day3--------
+------Day 3--------
 Spring Cloud 
 - API Gateway
 - Service Discovery
@@ -16,4 +16,7 @@ Spring Cloud
 - Circuit Breaker
 - Retry
 -Prepare OTP Code Application
+------Day 4------
+Work with relational DBMS
+Upload ER Diagrams
 
