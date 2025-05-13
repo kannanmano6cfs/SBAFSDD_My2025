@@ -1,0 +1,10 @@
+<h1>Add Hands on Practice Tasks</h1>
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div>
+        <label for="item" >Add tasks to participants</label>
+        <input ngModel type="text" name="item" placeholder="Enter the task" required />
+    </div>
+    <div>
+        <button [disabled]="myForm.invalid" type="submit">Add Task</button>
+    </div>
+</form>

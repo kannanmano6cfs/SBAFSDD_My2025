@@ -1,0 +1,22 @@
+<h1>Login Form</h1>
+<form [formGroup]="myForm1" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">UserName</label>
+        <input formControlName="username" type="email" name="username" class="form-control" placeholder="Enter Username"/>
+        <div *ngIf="myForm1.get('username')?.errors && myForm1.get('username')?.touched" class="alert alert-danger" role="alert">
+            <div *ngIf="myForm1.get('username')?.hasError('required')">Username is required</div>
+            <div *ngIf="myForm1.get('username')?.hasError('email')">Username must be a valid email</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input formControlName="password" type="password" name="password" class="form-control" placeholder="Enter Password"/>
+    </div>
+    <div>
+        <button [disabled]="myForm1.invalid" type="submit" class="btn btn-success">Login</button>
+    </div>
+</form>
+
+<div>
+    <p>Login form data: {{myForm1.value | json}}</p>
+</div>
