@@ -16,14 +16,17 @@ public class verificationService {
 
     //Send OTP
     public String sendOtp(String email){
+        System.out.println("Received request for OTP sending");
         String otp=String.format("%06d", new Random().nextInt(999999));
         OtpData otpData=new OtpData(email,otp);
         otpRepository.save(otpData);
+        System.out.println("OTP "+otp+" sent successfully");
         return "OTP "+otp+" sent successfully";
     }
 
     //Verify OTP
     public String verifyOtp(String email,String otp){
+        System.out.println("Received request  for verification");
         Optional<OtpData> otpData=otpRepository.findByEmail(email);
         if(otpData.isPresent()){
             OtpData otpData1=otpData.get();
