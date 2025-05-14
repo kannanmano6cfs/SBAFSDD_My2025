@@ -1,0 +1,1 @@
+Directive for DDD dcocuments and context maps
