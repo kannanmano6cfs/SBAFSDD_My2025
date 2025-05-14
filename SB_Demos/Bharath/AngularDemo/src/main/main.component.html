@@ -1,0 +1,31 @@
+<p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">We are providing services in many areas</p>
+<!--Static ones-->
+<!--<ul>
+    <li>Chennai</li>
+    <li>Coimbatore</li>
+    <li>Banglore</li>
+    <li>Hyderabad</li>
+</ul>-->
+
+<!-- Directives -->
+<button (click)="showCourses();">Show Locations</button>
+<button (click)="hideCourses();">Hide Locations</button>
+<div *ngIf="flag">
+<ul>
+    <li *ngFor="let course of courses">
+        {{course}}
+    </li>
+</ul>
+</div>
+
+<hr>
+<h3>Propery Binding</h3>
+<img [src]="pic1" height="200px" [alt]="altTxt"/>
+<hr>
+<h4>Event Binding</h4>
+<p>{{text}}</p>
+<button (click)="showText();">Show Text</button>
+<hr>
+<h5>Two-Way Binding</h5>
+<input type="text" [(ngModel)]="message"/>
+<p>Dynamic Message is {{message}} </p>
