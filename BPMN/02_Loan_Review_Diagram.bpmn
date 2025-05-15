@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1usy8el" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.33.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+  <bpmn:process id="Process_11zialt" name="Resubmitting the documents" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0i038gs</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0i038gs" sourceRef="StartEvent_1" targetRef="Activity_1ny7w8u" />
+    <bpmn:sequenceFlow id="Flow_1apbcdj" sourceRef="Activity_1ny7w8u" targetRef="Activity_19ms3b6" />
+    <bpmn:exclusiveGateway id="Gateway_14jqf12">
+      <bpmn:incoming>Flow_1il4t4l</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jlelgi</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ri5t4z</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0hcp42h</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1il4t4l" sourceRef="Activity_19ms3b6" targetRef="Gateway_14jqf12" />
+    <bpmn:endEvent id="Event_16keq64" name="Approved">
+      <bpmn:incoming>Flow_1jlelgi</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1jlelgi" name="Loan Approved based on documents" sourceRef="Gateway_14jqf12" targetRef="Event_16keq64">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approved</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_0clnkmq" name="Rejected">
+      <bpmn:incoming>Flow_1ri5t4z</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1ri5t4z" name="Loan Rejected based on documents" sourceRef="Gateway_14jqf12" targetRef="Event_0clnkmq">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(approved)and retryCount&gt;3</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0hcp42h" name="Resubmitting the documents" sourceRef="Gateway_14jqf12" targetRef="Activity_1ny7w8u">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=retryCount&lt;=3 and not(approved)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:scriptTask id="Activity_1ny7w8u" name="Submit/Resubmit the required documents">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=retryCount+1" resultVariable="retryCount" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0i038gs</bpmn:incoming>
+      <bpmn:incoming>Flow_0hcp42h</bpmn:incoming>
+      <bpmn:outgoing>Flow_1apbcdj</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="Activity_19ms3b6" name="Review and Approve the required document">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:formDefinition formId="loan_review" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1apbcdj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1il4t4l</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_11zialt">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_14jqf12_di" bpmnElement="Gateway_14jqf12" isMarkerVisible="true">
+        <dc:Bounds x="595" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16keq64_di" bpmnElement="Event_16keq64">
+        <dc:Bounds x="762" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="758" y="125" width="47" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0clnkmq_di" bpmnElement="Event_0clnkmq">
+        <dc:Bounds x="762" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="758" y="205" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ebdtr6_di" bpmnElement="Activity_1ny7w8u">
+        <dc:Bounds x="270" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kdlkqp_di" bpmnElement="Activity_19ms3b6">
+        <dc:Bounds x="430" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0i038gs_di" bpmnElement="Flow_0i038gs">
+        <di:waypoint x="218" y="180" />
+        <di:waypoint x="270" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1apbcdj_di" bpmnElement="Flow_1apbcdj">
+        <di:waypoint x="370" y="180" />
+        <di:waypoint x="430" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1il4t4l_di" bpmnElement="Flow_1il4t4l">
+        <di:waypoint x="530" y="180" />
+        <di:waypoint x="595" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jlelgi_di" bpmnElement="Flow_1jlelgi">
+        <di:waypoint x="620" y="155" />
+        <di:waypoint x="620" y="100" />
+        <di:waypoint x="762" y="100" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="652" y="60" width="75" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ri5t4z_di" bpmnElement="Flow_1ri5t4z">
+        <di:waypoint x="645" y="180" />
+        <di:waypoint x="762" y="180" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="654" y="140" width="71" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hcp42h_di" bpmnElement="Flow_0hcp42h">
+        <di:waypoint x="620" y="205" />
+        <di:waypoint x="620" y="320" />
+        <di:waypoint x="320" y="320" />
+        <di:waypoint x="320" y="220" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="418" y="286" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

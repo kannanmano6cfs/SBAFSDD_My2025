@@ -1,0 +1,66 @@
+{
+  "components": [
+    {
+      "text": "Review Loan Application Documents",
+      "type": "text",
+      "layout": {
+        "row": "Row_1oov91t",
+        "columns": null
+      },
+      "id": "Field_1kes4nd"
+    },
+    {
+      "label": "Applicant Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0cdleqi",
+        "columns": null
+      },
+      "id": "Field_1fuomk6",
+      "key": "applicant_name",
+      "readonly": true
+    },
+    {
+      "label": "Loan Amount",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1s2fyma",
+        "columns": null
+      },
+      "id": "Field_08mm1wy",
+      "key": "loan_amount",
+      "readonly": true
+    },
+    {
+      "label": "Credit Score",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1xh63h8",
+        "columns": null
+      },
+      "id": "Field_0gp7dfo",
+      "key": "credit_score",
+      "readonly": true
+    },
+    {
+      "label": "Approve Loan Application",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0fg84pn",
+        "columns": null
+      },
+      "id": "Field_0wdhsx9",
+      "key": "approved",
+      "description": "Rviewed Loan application and required documents"
+    }
+  ],
+  "type": "default",
+  "id": "loan_review_adv",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.33.1"
+  },
+  "schemaVersion": 18
+}
