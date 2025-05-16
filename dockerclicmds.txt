@@ -1,0 +1,213 @@
+Microsoft Windows [Version 10.0.26100.4061]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\manok>docker images
+REPOSITORY                                             TAG                                                                           IMAGE ID       CREATED         SIZE
+openzipkin/zipkin                                      latest                                                                        db081968d3db   2 weeks ago     227MB
+greetingssvc                                           v2                                                                            6855bc2a7523   4 weeks ago     492MB
+exkubedemo                                             v1                                                                            2c08ddc38fc2   5 weeks ago     460MB
+greetingssvc                                           v1                                                                            ea8e874d6f7b   5 weeks ago     492MB
+<none>                                                 <none>                                                                        a6fd41443a61   5 weeks ago     492MB
+mysql-server-app                                       v1                                                                            e98f9699d9e3   5 weeks ago     303MB
+gowebapp                                               v3                                                                            7d403b8bba94   5 weeks ago     91.6MB
+<none>                                                 <none>                                                                        23f165078f97   5 weeks ago     303MB
+<none>                                                 <none>                                                                        38c818b1071e   5 weeks ago     303MB
+greetservice                                           v1                                                                            bb0ee563f95a   7 weeks ago     460MB
+registry.k8s.io/kube-apiserver                         v1.29.2                                                                       8a9000f98a52   15 months ago   127MB
+registry.k8s.io/kube-proxy                             v1.29.2                                                                       9344fce2372f   15 months ago   82.3MB
+registry.k8s.io/kube-controller-manager                v1.29.2                                                                       138fb5a3a2e3   15 months ago   122MB
+registry.k8s.io/kube-scheduler                         v1.29.2                                                                       6fc5e6b7218c   15 months ago   59.5MB
+registry.k8s.io/etcd                                   3.5.10-0                                                                      a0eed15eed44   18 months ago   148MB
+registry.k8s.io/coredns/coredns                        v1.11.1                                                                       cbb01a7bd410   21 months ago   59.8MB
+docker/desktop-vpnkit-controller                       dc331cb22850be0cdd97c84a9cfecaf44a1afb6e                                      556098075b3d   2 years ago     36.2MB
+registry.k8s.io/pause                                  3.9                                                                           e6f181688397   2 years ago     744kB
+projects.registry.vmware.com/antrea/antrea-ubuntu      v1.1.0                                                                        f0a39d13014e   3 years ago     397MB
+docker/desktop-storage-provisioner                     v2.0                                                                          99f89471f470   4 years ago     41.9MB
+mcr.microsoft.com/mcr/hello-world                      latest                                                                        fce289e99eb9   6 years ago     1.84kB
+sampleaz1001ir.azurecr.io/samples/hello-world          latest                                                                        fce289e99eb9   6 years ago     1.84kB
+
+C:\Users\manok>dockerbuild -t excontainerdemo:v1  
+ERROR: "docker buildx build" requires exactly 1 argument.
+See 'docker buildx build --help'.
+
+Usage:  docker buildx build [OPTIONS] PATH | URL | -
+
+Start a build
+
+C:\Users\manok>docker build -t excontainerdemo:v1 .
+[+] Building 0.2s (1/1) FINISHED                                                                                                                                                      docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                                                  0.1s
+ => => transferring dockerfile: 2B                                                                                                                                                                    0.0s
+ERROR: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/sy1ygcjsplc70qwhz626bqk0t
+
+C:\Users\manok>cd ..
+
+C:\Users>cd ..
+
+C:\>d:
+
+D:\>cd DemoProjects1
+
+ => => transferring context: 2B                                                                                                                                                                       0.0s 
+ => [1/3] FROM docker.io/library/openjdk:21-slim@sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688                                                                              0.0s 
+ => [internal] load build context                                                                                                                                                                     0.8s 
+ => => transferring context: 20.76MB                                                                                                                                                                  0.8s 
+ => CACHED [2/3] WORKDIR /app                                                                                                                                                                         0.0s 
+ => [3/3] COPY target/ExContainerDemo-0.0.1-SNAPSHOT.jar app.jar                                                                                                                                      0.1s 
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/yx4ef7elnpx22prhwk99y2gxi
+1 warning found (use --debug to expand):
+ - ConsistentInstructionCasing: Command 'From' should match the case of the command majority (uppercase) (line 2)
+
+What's next:
+    View a summary of image vulnerabilities and recommendations → docker scout quickview
+
+D:\DemoProjects3\ExContainerDemo>docker images
+REPOSITORY                                             TAG                                                                           IMAGE ID       CREATED          SIZE
+excontainerdemo                                        v1                                                                            dd7eaf214f96   47 seconds ago   460MB
+openzipkin/zipkin                                      latest                                                                        db081968d3db   2 weeks ago      227MB
+greetingssvc                                           v2                                                                            6855bc2a7523   4 weeks ago      492MB
+exkubedemo                                             v1                                                                            2c08ddc38fc2   5 weeks ago      460MB
+greetingssvc                                           v1                                                                            ea8e874d6f7b   5 weeks ago      492MB
+<none>                                                 <none>                                                                        a6fd41443a61   5 weeks ago      492MB
+mysql-server-app                                       v1                                                                            e98f9699d9e3   5 weeks ago      303MB
+gowebapp                                               v3                                                                            7d403b8bba94   5 weeks ago      91.6MB
+<none>                                                 <none>                                                                        23f165078f97   5 weeks ago      303MB
+<none>                                                 <none>                                                                        38c818b1071e   5 weeks ago      303MB
+greetservice                                           v1                                                                            bb0ee563f95a   7 weeks ago      460MB
+gowebapp                                               v2                                                                            f9fe7c08457a   7 weeks ago      91.6MB
+myappfss                                               v1                                                                            f9fe7c08457a   7 weeks ago      91.6MB
+myapp1                                                 v1                                                                            621651835272   3 months ago     459MB
+servicea                                               v1                                                                            621651835272   3 months ago     459MB
+<none>                                                 <none>                                                                        7865239dbd35   3 months ago     459MB
+servloanreq                                            v1                                                                            a9788548baa7   3 months ago     1.24GB
+<none>                                                 <none>                                                                        e75795eceddb   3 months ago     503MB
+rapidfort/microsoft-sql-server-2019-ib                 latest                                                                        e97ba95e5e3b   5 months ago     1.17GB
+exday2                                                 v1                                                                            3fd9ba6cdaf7   6 months ago     493MB
+<none>                                                 <none>                                                                        52613aed3a61   6 months ago     277MB
+eurekaserver                                           v1                                                                            772752529b55   7 months ago     383MB
+<none>                                                 <none>                                                                        11c22f7d66ad   7 months ago     383MB
+cloudserver                                            v1                                                                            58abe95ad7e4   7 months ago     368MB
+gowebapp                                               v1                                                                            a5e6a7589cab   8 months ago     91.5MB
+spurin/diveintokubernetes-introduction-lab             portal                                                                        6289aa5f1f82   8 months ago     198MB
+alpine                                                 latest                                                                        91ef0af61f39   8 months ago     7.8MB
+spurin/diveintokubernetes-introduction-lab-extension   1.0.2                                                                         53f9d286305a   9 months ago     7.8MB
+spurin/diveintokubernetes-introduction-lab             control-plane                                                                 e641cb55cded   9 months ago     1.67GB
+mydbfss                                                v1                                                                            4ee9ce7216d1   9 months ago     303MB
+sampleaz1001ir.azurecr.io/samples/gowebapp-mysql       v1                                                                            4ee9ce7216d1   9 months ago     303MB
+gowebapp-mysql                                         v3                                                                            4ee9ce7216d1   9 months ago     303MB
+sampleaz1001ir.azurecr.io/samples/gowebapp             v1                                                                            25280f0ddedb   9 months ago     91.5MB
+openzipkin/zipkin                                      <none>                                                                        88de2581a6c0   9 months ago     183MB
+apache/kafka                           latest                                                                        b610bd8a193a   9 months ago     382MB
+docker/desktop-kubernetes                              kubernetes-v1.29.2-cni-v1.4.0-critools-v1.29.0-cri-dockerd-v0.3.11-1-debian   15340d8e9882   14 months ago    439MB
+registry.k8s.io/kube-apiserver                         v1.29.2                                                                       8a9000f98a52   15 months ago    127MB
+registry.k8s.io/kube-proxy                             v1.29.2                                                                       9344fce2372f   15 months ago    82.3MB
+registry.k8s.io/kube-scheduler                         v1.29.2                                                                       6fc5e6b7218c   15 months ago    59.5MB
+registry.k8s.io/kube-controller-manager                v1.29.2                                                                       138fb5a3a2e3   15 months ago    122MB
+registry.k8s.io/etcd                                   3.5.10-0                                                                      a0eed15eed44   18 months ago    148MB
+registry.k8s.io/coredns/coredns                        v1.11.1                                                                       cbb01a7bd410   21 months ago    59.8MB
+docker/desktop-vpnkit-controller                       dc331cb22850be0cdd97c84a9cfecaf44a1afb6e                                      556098075b3d   2 years ago      36.2MB
+registry.k8s.io/pause                                  3.9                                                                           e6f181688397   2 years ago      744kB
+projects.registry.vmware.com/antrea/antrea-ubuntu      v1.1.0                                                                        f0a39d13014e   3 years ago      397MB
+docker/desktop-storage-provisioner                     v2.0                                                                          99f89471f470   4 years ago      41.9MB
+mcr.microsoft.com/mcr/hello-world                      latest                                                                        fce289e99eb9   6 years ago      1.84kB
+sampleaz1001ir.azurecr.io/samples/hello-world          latest                                                                        fce289e99eb9   6 years ago      1.84kB
+
+D:\DemoProjects3\ExContainerDemo>docker rmi servloanreq:v1
+Error response from daemon: conflict: unable to remove repository reference "servloanreq:v1" (must force) - container 10ca010f4986 is using its referenced image a9788548baa7
+
+D:\DemoProjects3\ExContainerDemo>docker rmi servloanreq:v1
+Error response from daemon: conflict: unable to remove repository reference "servloanreq:v1" (must force) - container 10ca010f4986 is using its referenced image a9788548baa7
+
+D:\DemoProjects3\ExContainerDemo>docker rmi -f servloanreq:v1
+Untagged: servloanreq:v1
+Deleted: sha256:a9788548baa7a9d32a62c08f0e2446396680f2648ad18b43022da713305ed3bf
+
+D:\DemoProjects3\ExContainerDemo>docker run -d -p 8080:8080 excontainerdemo:v1
+b18beb4afa6e757b20756c462e784a8977570d326ee8d9fc3ee949cc88d3523e
+docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:8080 -> 0.0.0.0:0: listen tcp 0.0.0.0:8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+D:\DemoProjects3\ExContainerDemo>docker run -d -p 8080:8081 excontainerdemo:v1
+fe4b9cd6dff5753aa61f98ef55a7ec0d02be0f8e5d9017dce05cf9365ad96d97
+docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:8080 -> 0.0.0.0:0: listen tcp 0.0.0.0:8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+D:\DemoProjects3\ExContainerDemo>docker run -d -p 8081:8081 excontainerdemo:v1
+0018491fc063b70adc604608c419574d58bbfb88643c0410cd9b8d2acf18c153
+
+D:\DemoProjects3\ExContainerDemo>docker build -t excontainerdemo:v1 .
+[+] Building 3.2s (9/9) FINISHED                                                                                                                                                      docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                                                  0.0s
+ => => transferring dockerfile: 333B                                                                                                                                                                  0.0s 
+ => WARN: ConsistentInstructionCasing: Command 'From' should match the case of the command majority (uppercase) (line 2)                                                                              0.0s 
+ => [internal] load metadata for docker.io/library/openjdk:21-slim                                                                                                                                    2.2s 
+ => [auth] library/openjdk:pull token for registry-1.docker.io                                                                                                                                        0.0s 
+ => [internal] load .dockerignore                                                                                                                                                                     0.0s
+ => => transferring context: 2B                                                                                                                                                                       0.0s 
+ => [1/3] FROM docker.io/library/openjdk:21-slim@sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688                                                                              0.0s 
+ => [internal] load build context                                                                                                                                                                     0.6s 
+ => => transferring context: 20.76MB                                                                                                                                                                  0.6s 
+ => CACHED [2/3] WORKDIR /app                                                                                                                                                                         0.0s
+ => [3/3] COPY target/ExContainerDemo-0.0.1-SNAPSHOT.jar app.jar                                                                                                                                      0.1s 
+ => exporting to image                                                                                                                                                                                0.1s
+ => => exporting layers                                                                                                                                                                               0.1s 
+ => => writing image sha256:5c8902208506cd6ef85e593179550e9e1288abd01f0b02754134ee6a7852da1a                                                                                                          0.0s 
+ => => naming to docker.io/library/excontainerdemo:v1                                                                                                                                                 0.0s 
+
+ 1 warning found (use --debug to expand):
+ - ConsistentInstructionCasing: Command 'From' should match the case of the command majority (uppercase) (line 2)
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lvu0g4ayu3k74jbc73uw6v3kn
+
+What's next:
+    View a summary of image vulnerabilities and recommendations → docker scout quickview
+
+D:\DemoProjects3\ExContainerDemo>docker run -d -p 8081:8081 excontainerdemo:v1
+5af86ead369044d7fbcdaf5e1da5b088c3bb915d5ea71e595a4c28979f83a01b
+
+D:\DemoProjects3\ExContainerDemo>docker ps
+CONTAINER ID   IMAGE                COMMAND               CREATED              STATUS              PORTS                    NAMES
+5af86ead3690   excontainerdemo:v1   "java -jar app.jar"   About a minute ago   Up About a minute   0.0.0.0:8081->8081/tcp   angry_lichterman
+
+D:\DemoProjects3\ExContainerDemo>docker logs angry_lichterman
+
+  .   ____          _            __ _ _
+2025-05-16T06:43:11.754Z  INFO 1 --- [ExContainerDemo] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-05-16T06:43:11.759Z  INFO 1 --- [ExContainerDemo] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1095 ms
+2025-05-16T06:43:12.222Z  INFO 1 --- [ExContainerDemo] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2025-05-16T06:43:12.238Z  INFO 1 --- [ExContainerDemo] [           main] c.l.e.ExContainerDemoApplication         : Started ExContainerDemoApplication in 2.116 seconds (process running for 2.791)        
+2025-05-16T06:43:24.753Z  INFO 1 --- [ExContainerDemo] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-16T06:43:24.754Z  INFO 1 --- [ExContainerDemo] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-05-16T06:43:24.756Z  INFO 1 --- [ExContainerDemo] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+
+D:\DemoProjects3\ExContainerDemo>docker network create fssnetwork
+Error response from daemon: network with name fssnetwork already exists
+
+D:\DemoProjects3\ExContainerDemo>docker network create fssnetworkb3
+edfe0c31d2b38e54d077b4eb3712611644ca7e506bfe766a12920f2789da557c
+
+D:\DemoProjects3\ExContainerDemo>docker network inspect fssnetworkb3
+[
+    {
+        "Name": "fssnetworkb3",
+        "Id": "edfe0c31d2b38e54d077b4eb3712611644ca7e506bfe766a12920f2789da557c",
+                {
+                    "Subnet": "172.24.0.0/16",
+                    "Gateway": "172.24.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+D:\DemoProjects3\ExContainerDemo>
