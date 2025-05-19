@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: b3pod1
+  labels:
+    app: exkubedemo
+spec:
+  containers:
+  - name: exkubedemo
+    image: exkubedemo:v1
+    ports:
+    - containerPort: 8091
