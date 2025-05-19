@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fssbendsvc
+  labels: 
+    app: greet
+    tier: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+  selector:
+    app: greet
+    tier: backend
