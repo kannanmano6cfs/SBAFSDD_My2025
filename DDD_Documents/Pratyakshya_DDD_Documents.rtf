@@ -1,0 +1,218 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset1 Cambria Math;}}
+{\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont2\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl240\slmult1\qc\tx994\f0\fs40\lang9 Domain-Driven Design Document\par
+
+\pard\sa200\sl240\slmult1\qc\fs28 Digital Payment Management System\par
+
+\pard\sl240\slmult1\qc\par
+
+\pard\sl240\slmult1\b\fs24 I.   Introduction\fs22\par
+            \tab A. Purpose/Objective\par
+\b0\tab   This document defines the domain model, architecture, and design patterns for the Digital Payment Management System. \par
+           \tab  \b B.Domain Scope\par
+\tab  \b0 The application serves e-commerce platforms, financial institutions, and merchants to manage orders, payments, order tracking, and customer interactions effectively.\par
+           \tab  \b C\b0 .\b Domain Description\par
+\b0\tab The system facilitates customer management, order placement, payment processing, and transaction history tracking.\par
+          \tab   \b D\b0 .\b Context\b0\tab\par
+\tab  This analysis is limited to the backend service layers responsible for managing the core domain logic of the Digital Payment Management System, excluding UI or external 3rd-party integrations (e.g., payment gateways).\par
+\b\fs24 II.   Strategic Design\fs22\par
+\tab  A. Bounded Contexts\par
+\tab        a. Define core bounded contexts within our shopping cart system domain\par
+\tab\tab\b0 1.Customer Context(Handle customer profiles, personal data, and contact info.).\par
+\tab\tab 2.Order Management Context(Handle order placement, items, and tracking status).\par
+\tab\tab 3.Payment Context(Handle all payment processes and statuses).\par
+\tab\tab 4.Product Catalog Context(Store and retrieve product details and categories).\par
+\tab       \b b\b0 .\b Every Contexts should be explained with these as follows\par
+\tab\tab\b0 1\b . \b0 In Customer Context the Ubiquitous Language: Customer, Full Name, Email, Phone.\b  \par
+\tab\tab\b0 2\b . \b0 In Order Management Context the Ubiquitous Language: Order, OrderStatus, OrderHistory, Items, Quantity.\tab\par
+\tab\tab 3. In Payment Context the Ubiquitous Language: Payment, PaymentMethod, PaymentStatus.\par
+\tab\tab 4. In Product Catalog Context the Ubiquitous Language: Product, Category, Price, Inventory.\par
+\tab\b B. Context Map\tab\par
+\tab\tab a. \b0 In\b  \b0 Source Context of Order Management and the Target Context is Customer Context, In Source Context of Order Management and the Target Context is Product Catalog, In Source Context of Payment Context and the Target Context is Order Management are mapping.\b\par
+\tab\tab b. \b0 In Relationship Type\tab of Customer-Supplier Customer-Supplier and in Conformist relation define Order fetches static product details (no feedback loop) and in Customer-Supplier define Payment depends on Order status before payment initiation.\tab\b\par
+\tab\tab c. Provide proper brief document for interactions using the relationships.\par
+\b0\tab\tab Example: The Payment Context acts as a Customer to the Order Management Context, depending on order status updates before processing a transaction.\par
+\tab\b C. Sub-Domains\par
+\tab\tab\b0 a. In Payment Processing the type is core ,In Order Management the type is Core and  in Customer Management the type is Supporting.\par
+\b\fs24 III.  Tactical Design\fs22\par
+\b0\tab\b A. Order Context\par
+\tab\tab Entities:\par
+\tab\tab\b0\tab 1. Order\par
+\tab\tab\tab 2. OrderItem\par
+\tab\tab\tab 3. OrderHistory\par
+\tab\tab\b Value Objects:\par
+\tab\tab\tab\b0 1. OrderStatus\par
+\tab\tab\tab 2. OrderNote\par
+\tab\tab\b Aggregates:\par
+\tab\tab\tab\b0 1. Order \par
+\tab\tab\b Domain Services:\par
+\tab\tab\tab\b0 1. OrderService\par
+\tab\tab\b Domain Events:\par
+\tab\tab\tab\b0 1. OrderCreated\par
+\tab\tab\tab 2. OrderStatusUpdated\par
+\tab\tab\b Repositories:\par
+\tab\tab\tab\b0 1. OrderRepository\par
+\tab\tab\b Factories:\par
+\tab\tab\b0\tab 1. OrderFactory\par
+\tab\tab\b Application Services:\par
+\tab\tab\tab\b0 1. OrderManagementService\par
+\b\tab B. Payment Context\par
+\tab\tab Entities:\par
+\tab\tab\b0\tab 1. Payment\par
+\tab\tab\b Value Objects:\par
+\tab\tab\tab\b0 1. PaymentStatus\par
+\tab\tab\tab 2. PaymentMethod\par
+\tab\tab\tab 3. Amount\par
+\tab\tab\b Aggregates:\par
+\tab\tab\tab\b0 1. Payment \par
+\tab\tab\b Domain Services:\par
+\tab\tab\tab\b0 1. PaymentProcessorService\par
+\tab\tab\b Domain Events:\par
+\tab\tab\tab\b0 1. PaymentCompleted\par
+\tab\tab\tab 2. PaymentFailed\par
+\tab\tab\b Repositories:\par
+\tab\tab\tab\b0 1. PaymentRepository\par
+\tab\tab\b Factories:\par
+\tab\tab\b0\tab 1. PaymentFactory\par
+\tab\tab\b Application Services:\par
+\tab\tab\tab\b0 1. PaymentManagementService\par
+\tab\b C. Customer Context\par
+\tab\tab Entities\b0 :\par
+\tab\tab\tab 1. Customer\par
+\tab\tab\b Value Objects:\par
+\b0\tab\tab\tab 1. ContactInfo\par
+\tab\tab\tab 2. FullName\par
+\b\tab\tab Aggregates:\par
+\b0\tab\tab\tab 1. Customer \par
+\b\tab\tab Domain Services:\par
+\b0\tab\tab\tab 1. CustomerLookupService\par
+\b\tab\tab Domain Events:\par
+\b0\tab\tab\tab 1. CustomerCreated\par
+\tab\tab\tab 2. CustomerUpdated\par
+\b\tab\tab Repositories:\par
+\b0\tab\tab\tab 1. CustomerRepository\par
+\b\tab\tab Factories:\par
+\b0\tab\tab\tab 1. CustomerFactory\par
+\b\tab\tab Application Services:\par
+\b0\tab\tab\tab 1. CustomerManagementService\par
+\b\tab D. Product Context\par
+\tab\tab Entities\b0 :\par
+\tab\tab\tab 1. Product\par
+\tab\tab\tab 2. Category\par
+\tab\tab\b Value Objects:\par
+\b0\tab\tab\tab 1. Price\par
+\tab\tab\tab 2. Description\par
+\b\tab\tab Aggregates:\par
+\b0\tab\tab\tab 1. Product \par
+\b\tab\tab Domain Services:\par
+\b0\tab\tab\tab 1. ProductSearchService\par
+\b\tab\tab Domain Events:\par
+\b0\tab\tab\tab 1. ProductAdded\par
+\tab\tab\tab 2. ProductUpdated\par
+\b\tab\tab Repositories:\par
+\b0\tab\tab\tab 1. ProductRepository\par
+\b\tab\tab Factories:\par
+\b0\tab\tab\tab 1. ProductFactory\par
+\b\tab\tab Application Services:\par
+\b0\tab\tab\tab 1. ProductCatalogService\par
+\b\fs24 IV. Implementation Considerations\par
+\tab a. Technology Considerations:\par
+\tab\fs22\tab\b0 1. Spring Boot for backend domain modeling.\par
+\tab\tab 2. Kafka for domain events messaging.\par
+\tab\tab 3. Hibernate/JPA for ORM-based persistence\fs24 .\b  \par
+\tab b. Architectural Pattern:\par
+\tab\tab\b0\fs22 1\b . \b0 CQRS for separating command vs query models in order/payment.\par
+\tab\tab 2. Event Sourcing for tracking historical state of orders/payments.\par
+\tab\tab 3. Resilience: CircuitBreaker using Resilience4j, Retry for payment retries.\par
+\tab\tab 4. SAGA Pattern for distributed transaction management.\par
+\b\fs24\tab c. Testing\tab\par
+\tab\tab\b0\fs22 1. Unit Testing with JUnit5.\par
+\tab\tab 2. Integration Testing using TestContainers or Mockito.\par
+\tab\tab 3. Security Testing with Spring Security test utils.\par
+\b\fs24\tab d. Security\par
+\tab\tab\b0\fs22 1. OAuth2.0 / JWT for API authentication/authorization.\par
+\tab\tab 2. Spring Security method-level and endpoint-level protection.\fs24\par
+\b V. Glossary\par
+\tab\b0\fs22 Order:\tab Transaction initiated by customer including product selections.\par
+\tab Payment: Financial transaction linked to an order.\par
+\tab OrderStatus: Lifecycle stage of order (e.g., PENDING, SHIPPED, DELIVERED).\par
+\tab Customer: Person making purchases in the system.\par
+\tab Aggregate Root: Entry point to access domain object cluster.\par
+\tab Domain Event: An important event that occurs in the domain (e.g., OrderCreated).\par
+\par
+\b\fs24 Example Illustrative Snippets:\par
+Product Context \f1\endash  Entit\f0\lang1033 y\par
+\tab Category Context \f1\endash  Entity\f0 :\f1\par
+\f0\tab\b0\f1\fs22 Entity: Category\par
+\b\f0\fs24\tab\b0\f1\fs22 Description: Represents a classification or group to which products belong. It helps organize products for easier navigation and management.\par
+\f0\tab\f1 Attributes:\par
+\b\f0\fs24\tab\tab\b0\fs22 1. \f1 id\par
+\f0\tab\tab 2. \f1 category_name\par
+\f0\tab\tab 3. \f1 description\par
+\f0\tab\b\fs24 Customer Context \f1\endash  Entity\f0 :\f1\par
+\b0\f0\fs22\tab\f1 Entity: Customer\par
+\f0\tab\f1 Description: Represents a user of the digital payment system who places orders and completes transactions.\par
+\f0\tab\f1 Attributes:\par
+\f0\tab\tab 1. \f1 id\par
+\f0\tab\tab 2. \f1 first_name\par
+\f0\tab\tab 3. \f1 last_name\par
+\f0\tab\tab 4. \f1 email\par
+\f0\tab\tab 5. \f1 phone\par
+\f0\tab\b\fs24 Order Context \f1\endash  Entity\f0 :\f1\par
+\b0\f0\fs22\tab\f1 Entity: Order\par
+\f0\tab\f1 Description: Represents a purchase placed by a customer. Maintains total amount and order status.\par
+\f0\tab\f1 Attributes:\par
+\f0\tab\tab 1. \f1 id\par
+\f0\tab\tab 2. \f1 customer_id\par
+\f0\tab\tab 3. \f1 order_date\par
+\f0\tab\tab 4. \f1 status\par
+\f0\tab\tab 5. \f1 total_amount\par
+\b\f0\fs24\tab Payments Context \f1\endash  Aggregate\f0 :\f1\par
+\b0\f0\fs22\tab\f1 Aggregate: Payment\par
+\f0\tab\f1 Description: Represents payment information related to an order. Manages payment method, status, and amount.\par
+\f0\tab\f1 Entities:\par
+\f0\tab\tab 1. \f1 payments\par
+\f0\tab\f1 Entity: Payment\par
+\f0\tab\f1 Attributes:\par
+\f0\tab\tab 1. \f1 id\par
+\f0\tab\tab 2. \f1 order_id\par
+\f0\tab\tab 3. \f1 payment_date\par
+\f0\tab\tab 4. \f1 payment_method\par
+\f0\tab\tab 5. \f1 amount\par
+\f0\tab\tab 6. \f1 payment_status\par
+\f0\tab\b\fs24 Order Context \f1\endash  OrderItems Entity\f0 :\f1\par
+\b0\f0\fs22\tab\f1 Entity: OrderItem\par
+\f0\tab\f1 Description: Represents individual product line-items that are part of a larger order.\par
+\f0\tab\f1 Attributes:\par
+\f0\tab\tab 1. \f1 id\par
+\f0\tab\tab 2. \f1 order_id\par
+\f0   \tab\tab 3. \f1 product_id\par
+\f0\tab\tab 4. \f1 quantity\par
+\f0\tab\tab 5. \f1 price_at_order\par
+\f0\tab\b\fs24 Order Context \f1\endash  OrderHistory Entity\f0 :\b0\f1\fs22\par
+\f0\tab\f1 Entity: OrderHistory\par
+\f0\tab\f1 Description: Tracks the lifecycle and status updates of an order for audit and visibility purposes.\par
+\f0\tab\f1 Attributes:\par
+\f0\tab\tab 1. \f1 id\par
+\f0\tab\tab 2. \f1 order_id\par
+\f0\tab\tab 3. \f1 status\par
+\f0\tab\tab 4. \f1 updated_at\par
+\f0\tab\tab 5. \f1 note\b\f0\fs24\par
+\tab Context Map: Order & Payment Contexts:\par
+\tab\tab Relationships:\par
+\tab\tab\tab\b0\fs22 Order \f2\u8594?\f0  Payment: Customer-Supplier (Conformist)\par
+\b\fs24\tab\tab\tab\b0\fs22 Order \f2\u8594?\f0  Product: Customer-Supplier (Conformist)\par
+\b\fs24\tab\tab Description:\par
+\tab\tab\tab\b0\fs22 The Order Context depends on Product Context to retrieve product information.\par
+\tab\tab\tab The Payment Context depends on Order Context for payment triggers and validation.\par
+\b\fs24\tab\tab Integration:\par
+\tab\tab\tab API calls from Order Context to:\par
+\tab\tab\tab\b0\fs22\tab 1\b\fs24 . \b0\fs22 Fetch product info by product_id.\b\fs24\par
+\b0\fs22\tab\tab\tab\tab 2. Initiate payment processing.\par
+\tab\tab\tab\tab 3. Notify on order status change.\lang9\par
+\b\par
+\b0\par
+\b     \tab\par
+\tab   \b0\par
+}
+ 
